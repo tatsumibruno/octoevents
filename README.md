@@ -72,3 +72,9 @@ Or just use CURL:
 ```bash
 curl -X GET "http://localhost:8080/issues/2/events" -H "accept: */*"
 ```
+
+# Access to the database
+H2 Console is exposed at http://localhost:8080/h2-console
+##### JDBC URL: jdbc:h2:mem:octoevents
+##### User Name: sa
+##### Password: password

@@ -57,10 +57,6 @@ public class Issue {
         return issue;
     }
 
-    public void setState(String state) {
-        this.state = requireNonNull(state, "Issue state cannot be null");
-    }
-
     public void update(IssueEventOcurred event) {
         requireNonNull(event, "Event cannot be null");
         this.state = requireNonNull(event.issueState(), "Issue state cannot be null");
