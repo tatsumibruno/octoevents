@@ -1,6 +1,8 @@
 # Octo Events - API
 API that listen to GitHub issue events from some repository
 
+![webhook settings](./docs/img-9.png)
+
 # How to run?
 Here are some ways to run this app:
 
