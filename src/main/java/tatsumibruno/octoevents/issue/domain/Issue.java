@@ -26,7 +26,6 @@ public class Issue {
     private String state;
     @NotNull
     private String title;
-    @NotNull
     private String body;
     @NotNull
     private ZonedDateTime createdAt;
@@ -38,7 +37,7 @@ public class Issue {
         this.number = requireNonNull(number, "Issue number cannot be null");
         this.state = requireNonNull(state, "Issue state cannot be null");
         this.title = requireNonNull(title, "Issue title cannot be null");
-        this.body = requireNonNull(body, "Issue body cannot be null");
+        this.body = body;
         this.createdAt = requireNonNull(createdAt, "Issue creation time cannot be null");
     }
 

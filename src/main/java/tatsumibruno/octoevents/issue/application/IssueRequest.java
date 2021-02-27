@@ -13,7 +13,6 @@ public class IssueRequest {
     private Integer number;
     @NotEmpty
     private String title;
-    @NotEmpty
     private String body;
     @NotEmpty
     private String state;
