@@ -41,7 +41,7 @@ Access your repository webhook settings:
 
 ![webhook settings](./docs/img-1.png)
 
-Set your exposed URL and modify Content-Type to application/json:
+Set your exposed URL (path /webhooks/events) and modify Content-Type to application/json:
 
 ![webhook settings](./docs/img-2.png)
 
@@ -65,3 +65,8 @@ Access http://localhost:8080/swagger-ui.html and execute the endpoint to get the
 ![webhook settings](./docs/img-7.png)
 
 ![webhook settings](./docs/img-8.png)
+
+Or just use CURL:
+```bash
+curl -X GET "http://localhost:8090/issues/2/events" -H "accept: */*"
+```
