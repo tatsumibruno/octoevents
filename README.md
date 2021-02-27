@@ -68,5 +68,5 @@ Access http://localhost:8080/swagger-ui.html and execute the endpoint to get the
 
 Or just use CURL:
 ```bash
-curl -X GET "http://localhost:8090/issues/2/events" -H "accept: */*"
+curl -X GET "http://localhost:8080/issues/2/events" -H "accept: */*"
 ```
