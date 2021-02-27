@@ -21,6 +21,7 @@ docker run -p 8080:8080 tatsumibruno/octoevents:0.0.1
 <br>
 <br>
 <b>With terminal inside project folder, follow this steps:</b>
+<br>
 Compile fat jar file:
 ```bash
 mvn package verify
