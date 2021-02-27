@@ -14,12 +14,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import tatsumibruno.octoevents.issue.domain.IssueEventView;
 import tatsumibruno.octoevents.issue.domain.IssueRepository;
+import tatsumibruno.octoevents.issue.domain.IssueView;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -51,18 +50,18 @@ class IssueEventIT {
                 .contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].action", equalTo("open")))
-                .andExpect(jsonPath("$[0].generatedAt", equalTo("2021-02-27T11:00:00Z")))
-                .andExpect(jsonPath("$[0].issueNumber", equalTo(1)))
-                .andExpect(jsonPath("$[0].issueTitle", equalTo("Issue number 1")))
-                .andExpect(jsonPath("$[0].issueBody", equalTo("Content of issue number 1")))
-                .andExpect(jsonPath("$[0].issueCreatedAt", equalTo("2021-02-27T11:00:00Z")))
-                .andExpect(jsonPath("$[0].issueState", equalTo("closed")))
-                .andExpect(jsonPath("$[1].action", equalTo("edited")))
-                .andExpect(jsonPath("$[1].generatedAt", equalTo("2021-02-27T11:01:00Z")))
-                .andExpect(jsonPath("$[2].action", equalTo("closed")))
-                .andExpect(jsonPath("$[2].generatedAt", equalTo("2021-02-27T11:10:00Z")))
-                .andExpect(jsonPath("$", hasSize(3)));
+                .andExpect(jsonPath("$.number", equalTo(1)))
+                .andExpect(jsonPath("$.title", equalTo("Issue number 1")))
+                .andExpect(jsonPath("$.body", equalTo("Content of issue number 1")))
+                .andExpect(jsonPath("$.createdAt", equalTo("2021-02-27T11:00:00Z")))
+                .andExpect(jsonPath("$.state", equalTo("closed")))
+                .andExpect(jsonPath("$.events[0].action", equalTo("open")))
+                .andExpect(jsonPath("$.events[0].generatedAt", equalTo("2021-02-27T11:00:00Z")))
+                .andExpect(jsonPath("$.events[1].action", equalTo("edited")))
+                .andExpect(jsonPath("$.events[1].generatedAt", equalTo("2021-02-27T11:01:00Z")))
+                .andExpect(jsonPath("$.events[2].action", equalTo("closed")))
+                .andExpect(jsonPath("$.events[2].generatedAt", equalTo("2021-02-27T11:10:00Z")))
+                .andExpect(jsonPath("$.events", hasSize(3)));
     }
 
     @Test
@@ -126,11 +125,11 @@ class IssueEventIT {
         issueRequest.put("state", "closed");
         mockMvc.perform(requestBuilder.content(objectMapper.writeValueAsString(issueEventRequest)))
                 .andExpect(status().isCreated());
-        List<IssueEventView> issueEventViews = issueRepository.eventsViewByIssueNumber(100);
-        assertEquals(3, issueEventViews.size());
-        IssueEventView firstEvent = issueEventViews.get(0);
-        assertEquals("Issue 100 edited", firstEvent.getIssueTitle());
-        assertEquals("closed", firstEvent.getIssueState());
+        IssueView issueView = issueRepository.eventsViewByIssueNumber(100)
+                .orElseThrow();
+        assertEquals(3, issueView.getEvents().size());
+        assertEquals("Issue 100 edited", issueView.getTitle());
+        assertEquals("closed", issueView.getState());
     }
 
 }
