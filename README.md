@@ -1,5 +1,5 @@
 # Octo Events - API
-API that listen to GitHub issue events from this repository
+API that listen to GitHub issue events from some repository
 
 # How to run?
 Here are some ways to run this app:
